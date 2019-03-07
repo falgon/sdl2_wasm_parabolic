@@ -1,8 +1,10 @@
-CPPOPT := -std=c++1z -Wall -Wextra -pedantic
+CXXFLAGS := -std=c++1z -Wall -Wextra -pedantic
+ICNLUDE_PATH := /usr/local/include
 SRC := src/main.cpp
 
+
 all:
-	em++ $(CPPOPT) -DNDEBUG $(SRC)\
+	em++ $(CXXFLAGS) -I $(INCLUDE_PATH) -DNDEBUG $(SRC)\
 		-s WASM=1\
 		-s USE_SDL=2\
 		-s USE_SDL_TTF=2\
@@ -14,7 +16,7 @@ all:
 		-o parabsbc.js
 
 app:
-	g++ $(CPPOPT) -DNDEBUG $(SRC)\
+	g++ $(CXXFLAGS) -I $(INCLUDE_PATH) -DNDEBUG $(SRC)\
 		-lSDL2\
 		-lSDL2_ttf\
 		-lSDL2_image\
@@ -22,10 +24,11 @@ app:
 		-o app
 
 debug:
-	/usr/bin/clang++ $(SRC)\
+	clang++ $(SRC)\
 		-fsanitize=address\
 		-fno-omit-frame-pointer\
-		$(CPPOPT)\
+		$(CXXFLAGS)\
+		-I $(INCLUDE_PATH)\
 		-lSDL2\
 		-lSDL2_ttf\
 		-lSDL2_image\
