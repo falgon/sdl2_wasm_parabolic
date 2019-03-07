@@ -47,11 +47,8 @@ public:
     basic_drawer::loop_result operator()()
     {
         if (time() < land_time_) {
-            static bool clicked = false;
             loop_result res = poll_event([](const SDL_Event& e) -> basic_drawer::loop_result {
-                if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_PRESSED) {
-                    clicked = true;
-                } else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_RELEASED && clicked) {
+                if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_RELEASED) {
                     return { false, std::nullopt };
                 }
                 return { true, std::nullopt };
@@ -69,11 +66,8 @@ public:
     operator()(double wait, double next_frame) noexcept
     {
         if (time() < land_time_) {
-            static bool clicked = false;
             loop_result res = poll_event([](const SDL_Event& e) -> basic_drawer::loop_result {
-                if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_PRESSED) {
-                    clicked = true;
-                } else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_RELEASED && clicked) {
+                if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_RELEASED) {
                     return { false, std::nullopt };
                 }
                 return { true, std::nullopt };

@@ -48,7 +48,6 @@ public:
 
     basic_drawer::loop_result operator()()
     {
-        static bool clicked = false;
         int x = 0, y = 0;
         SDL_GetMouseState(&x, &y);
 
@@ -57,9 +56,7 @@ public:
                 x = e.motion.x;
                 y = e.motion.y;
             }
-            if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_PRESSED) {
-                clicked = true;
-            } else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_RELEASED && clicked) {
+            if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_RELEASED) {
                 angle_from_2p(e.button.x, e.button.y);
                 tf_.reset_static_texture();
                 return { false, std::nullopt };
