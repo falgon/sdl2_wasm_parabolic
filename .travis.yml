@@ -1,9 +1,20 @@
 env:
 notifications:
   email: false
-
+  
 apt:
     update: true
+addons:
+    apt:
+        packages:
+            - libsdl2-2.0-0
+            - libsdl2-dev
+            - libsdl2-gfx-dev
+            - libsdl2-image-2.0-0
+            - libsdl2-image
+            - libsdl2-ttf-2.0-0
+            - libsdl2-ttf-dev
+
 cache:
     apt: true
     
@@ -19,10 +30,8 @@ services:
     - docker
 
 before_install:
-    - export CPU_NUM=$(egrep -c "^processor\s:\s[0-9]+$" /proc/cpuinfo);
     - curl -fsSL https://raw.githubusercontent.com/falgon/SrookCppLibraries/master/travis/linux/before_install.sh | bash
     - sudo apt-get -f -y -qq install
-    - sudo apt-get -y -qq install aptitude
     - sudo apt-get -y autoremove
 
 install:
@@ -32,7 +41,6 @@ install:
     - sudo apt-get -qq install gcc-7 g++-7 clang subversion make cmake python libtool zlib1g zlib1g-dev -y
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
     - sudo update-alternatives --config gcc
-    - sudo aptitude install -y libsdl2-2.0-0 libsdl-ttf2.0-dev libsdl2-dev
     - docker run -dit --name emscripten -v $(pwd):/src -v /usr/local/include:/usr/local/include -v /usr/include:/usr/include trzeci/emscripten:sdk-incoming-64bit bash
 
 script:
