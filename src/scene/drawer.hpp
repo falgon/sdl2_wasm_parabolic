@@ -154,17 +154,16 @@ private:
         }
         SDL_RenderPresent(rw_.renderer());
 
-        bool clicked = false;
         return  
 #ifdef __EMSCRIPTEN__
             poll_event
 #else
             wait_event
 #endif
-            ([&clicked, this](const SDL_Event& e) -> basic_drawer::loop_result {
-            if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_PRESSED) {
+            ([/*&clicked,*/ this](const SDL_Event& e) -> basic_drawer::loop_result {
+            /*if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_PRESSED) {
                 clicked = true;
-            } else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_RELEASED && clicked) {
+            } else*/ if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT && e.button.state == SDL_RELEASED/* && clicked*/) {
                 tf_.reset_static_texture();
 #ifdef __EMSCRIPTEN__
                 tl_.reset_static_texture();
