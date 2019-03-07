@@ -1,0 +1,38 @@
+env:
+notifications:
+  email: false
+
+apt:
+    update: true
+cache:
+    apt: true
+    directories:
+        - "$TRAVIS_BUILD_DIR/include"
+        - "$TRAVIS_BUILD_DIR/lib"
+
+language: cpp
+os:
+    - linux
+sudo: required
+dist: trusty
+compiler:
+    - gcc
+
+before_install:
+    - export CPU_NUM=$(egrep -c "^processor\s:\s[0-9]+$" /proc/cpuinfo);
+
+install:
+    - git clone https://github.com/juj/emsdk.git
+    - cd emsdk
+    - ./emsdk install --build=Release sdk-incoming-64bit binaryen-master-64bit
+    - ./emsdk activate --global --build=Release sdk-incoming-64bit binaryen-master-64bit
+    - source ./emsdk_env.sh
+    - cd ../
+    - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+    - sudo apt-get update
+    - sudo apt-get -y -qq install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev clang-7 lldb-7 lld-7 libc++-7-dev libc++abi-7-dev
+
+script:
+    - make clean debug
+    - make clean app
+    - make -j ${CPU_NUM}
