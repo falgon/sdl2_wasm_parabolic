@@ -4,16 +4,6 @@ notifications:
   
 apt:
     update: true
-addons:
-    apt:
-        packages:
-            - libsdl2-2.0-0
-            - libsdl2-dev
-            - libsdl2-gfx-dev
-            - libsdl2-image-2.0-0
-            - libsdl2-image
-            - libsdl2-ttf-2.0-0
-            - libsdl2-ttf-dev
 
 cache:
     apt: true
@@ -30,20 +20,13 @@ services:
     - docker
 
 before_install:
-    - curl -fsSL https://raw.githubusercontent.com/falgon/SrookCppLibraries/master/travis/linux/before_install.sh | bash
-    - sudo apt-get -f -y -qq install
-    - sudo apt-get -y autoremove
+    - export CPU_NUM=$(egrep -c "^processor\s:\s[0-9]+$" /proc/cpuinfo);
 
 install:
-    - sudo apt-get -qq -y install build-essential software-properties-common zlib1g-dev
-    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-    - sudo apt-get -qq update
-    - sudo apt-get -qq install gcc-7 g++-7 clang subversion make cmake python libtool zlib1g zlib1g-dev -y
-    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
-    - sudo update-alternatives --config gcc
-    - docker run -dit --name emscripten -v $(pwd):/src -v /usr/local/include:/usr/local/include -v /usr/include:/usr/include trzeci/emscripten:sdk-incoming-64bit bash
+    - chmod +x .travis/docker_entry.sh
+    - docker run -dit --name emscripten -v $(pwd)/.travis:/mnt -v $(pwd):/src trzeci/emscripten:sdk-incoming-64bit bash
+    - docker exec -it emscripten /mnt/docker_entry.sh
+    - cat gcc_include_path
 
 script:
-    - docker exec -it emscripten make clean debug
-    - docker exec -it emscripten make clean app
-    - docker exec -it emscripten make -j ${CPU_NUM}
+    - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH="$(cat gcc_include_path)" clean app
