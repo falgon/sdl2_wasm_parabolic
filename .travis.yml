@@ -24,8 +24,8 @@ before_install:
 
 install:
     - chmod +x docker_entry.sh
-    - docker build -t="emscripten" .
-    - docker run -dit emscripten -v $(pwd):/src bash
+    - docker run -dit --name emscripten -v $(pwd):/src bash
+    - docker exec -it emscripten ./docker_entry.sh
 
 script:
     - docker exec -it emscripten make clean debug
