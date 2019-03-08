@@ -6,7 +6,7 @@ apt-get update
 apt-get -y -qq upgrade
 apt-get -y -qq autoremove
 apt-get install -y -qq -t testing g++
-apt-get install -f -qq -y
+apt-get install -f -y -qq
 apt-get install -y -qq aptitude
 aptitude -y install\
     build-essential\
@@ -26,6 +26,5 @@ aptitude -y install\
     libsdl2-ttf-2.0-0\
     libsdl2-ttf-dev
 
-ls /usr/include/SDL2
 g++ --version
 clang++ --version
