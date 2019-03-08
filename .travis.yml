@@ -14,6 +14,7 @@ addons:
             - zlib1g-dev
             - gcc-7
             - g++-7
+            - g++-multilib
             - clang
             - subversion
             - make
@@ -50,12 +51,9 @@ before_install:
 install:
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
     - sudo update-alternatives --config gcc
-    - docker run -dit --name emscripten -v $(pwd):/src -v /usr/local/include:/include_usr_lib -v /usr/include/c++/7.4.0:/usr/include_lib trzeci/emscripten:sdk-incoming-64bit bash
-    - gcc --version
-    - clang --version
-    - ls /usr/include
+    - docker run -dit --name emscripten -v $(pwd):/src --entrypoint /src/docker_entry.sh trzeci/emscripten:sdk-incoming-64bit bash
 
 script:
-    - docker exec -it emscripten make INCLUDE_PATH="/include_usr_lib -I/usr/include_lib" clean debug
-    - docker exec -it emscripten make INCLUDE_PATH="/include_usr_lib -I/usr/include_lib" clean app
-    - docker exec -it emscripten make INCLUDE_PATH="/include_usr_lib -I/usr/include_lib" -j ${CPU_NUM}
+    - docker exec -it emscripten make clean debug
+    - docker exec -it emscripten make clean app
+    - docker exec -it emscripten make -j ${CPU_NUM}
