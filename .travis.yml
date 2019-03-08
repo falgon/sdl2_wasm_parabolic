@@ -24,7 +24,7 @@ before_install:
 
 install:
     - chmod +x .travis/docker_entry.sh
-    - docker run -dit --name emscripten -v $(pwd)/.travis:/src bash
+    - docker run -dit --name emscripten -v $(pwd)/.travis:/src trzeci/emscripten:sdk-incoming-64bit bash
     - docker exec -it emscripten ./docker_entry.sh
 
 script:
