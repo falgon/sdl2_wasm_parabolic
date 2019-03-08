@@ -25,7 +25,7 @@ before_install:
 install:
     - chmod +x docker_entry.sh
     - docker build -t="emscripten" .
-    - docker run -dit --name emscripten -v $(pwd):/src trzeci/emscripten:sdk-incoming-64bit bash
+    - docker run -dit emscripten -v $(pwd):/src bash
 
 script:
     - docker exec -it emscripten make clean debug
