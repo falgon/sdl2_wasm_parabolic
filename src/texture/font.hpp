@@ -1,7 +1,7 @@
 #ifndef INCLUDED_PBM_TEXTURE_FONT_HPP
 #define INCLUDED_PBM_TEXTURE_FONT_HPP
 #include "config.hpp"
-#ifndef __linux__
+#if !defined(__linux) && !defined(__linux__) && !defined(__gnu_linux__) && !defined(linux)
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_render.h>
 #else

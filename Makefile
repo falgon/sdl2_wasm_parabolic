@@ -1,5 +1,5 @@
 CXXFLAGS := -std=c++1z -Wall -Wextra -pedantic
-INCLUDE_PATH := -I /usr/local/include -I /usr/include
+INCLUDE_PATH := 
 SRC := src/main.cpp
 
 

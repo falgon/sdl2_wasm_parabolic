@@ -1,6 +1,6 @@
 #ifndef INCLUDED_PBM_RW_MANAGER_HPP
 #define INCLUDED_PBM_RW_MANAGER_HPP
-#ifndef __linux__
+#if !defined(__linux) && !defined(__linux__) && !defined(__gnu_linux__) && !defined(linux)
 #include <SDL2/SDL.h>
 #else
 #include <SDL.h>
