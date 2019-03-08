@@ -23,7 +23,7 @@ before_install:
     - export CPU_NUM=$(egrep -c "^processor\s:\s[0-9]+$" /proc/cpuinfo);
 
 install:
-    - chmod +x docker_entry.sh
+    - chmod +x .travis/docker_entry.sh
     - docker run -dit --name emscripten -v $(pwd)/.travis:/src bash
     - docker exec -it emscripten ./docker_entry.sh
 
