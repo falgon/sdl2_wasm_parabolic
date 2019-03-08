@@ -1,11 +1,10 @@
 CXXFLAGS := -std=c++1z -Wall -Wextra -pedantic
-LIBFLAGS :=
-ICNLUDE_PATH := /usr/local/include
+ICNLUDE_PATH := -I /usr/local/include -I /usr/include
 SRC := src/main.cpp
 
 
 all:
-	em++ $(CXXFLAGS) -I $(INCLUDE_PATH) $(LIBFLAGS) -DNDEBUG $(SRC)\
+	em++ $(CXXFLAGS) $(INCLUDE_PATH) -DNDEBUG $(SRC)\
 		-s WASM=1\
 		-s USE_SDL=2\
 		-s USE_SDL_TTF=2\
@@ -17,7 +16,7 @@ all:
 		-o parabsbc.js
 
 app:
-	g++ $(CXXFLAGS) -I $(INCLUDE_PATH) $(LIBFLAGS) -DNDEBUG $(SRC)\
+	g++ $(CXXFLAGS) $(INCLUDE_PATH) -DNDEBUG $(SRC)\
 		-lSDL2\
 		-lSDL2_ttf\
 		-lSDL2_image\
@@ -29,8 +28,7 @@ debug:
 		-fsanitize=address\
 		-fno-omit-frame-pointer\
 		$(CXXFLAGS)\
-		$(LIBFLAGS)\
-		-I $(INCLUDE_PATH)\
+		$(INCLUDE_PATH)\
 		-lSDL2\
 		-lSDL2_ttf\
 		-lSDL2_image\
