@@ -4,30 +4,6 @@ notifications:
   
 apt:
     update: true
-addons:
-    apt:
-        sources:
-            - sourceline: 'ppa:ubuntu-toolchain-r/test'
-        packages:
-            - build-essential
-            - software-properties-common
-            - zlib1g-dev
-            - gcc-7
-            - g++-7
-            - g++-multilib
-            - clang
-            - subversion
-            - make
-            - cmake
-            - python
-            - libtool
-            - libsdl2-2.0-0
-            - libsdl2-dev
-            - libsdl2-gfx-dev
-            - libsdl2-image-2.0-0
-            - libsdl2-image-dev
-            - libsdl2-ttf-2.0-0
-            - libsdl2-ttf-dev
 
 cache:
     apt: true
@@ -49,9 +25,7 @@ before_install:
     - sudo apt-get -y autoremove
 
 install:
-    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
-    - sudo update-alternatives --config gcc
-    - docker run -dit --name emscripten -v $(pwd):/src --entrypoint /src/docker_entry.sh trzeci/emscripten:sdk-incoming-64bit bash
+    - docker run -dit --name emscripten -v $(pwd):/src --entrypoint ./docker_entry.sh trzeci/emscripten:sdk-incoming-64bit bash
 
 script:
     - docker exec -it emscripten make clean debug
