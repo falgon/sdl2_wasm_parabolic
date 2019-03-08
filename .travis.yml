@@ -50,10 +50,10 @@ before_install:
 install:
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
     - sudo update-alternatives --config gcc
-    - docker run -dit --name emscripten -v $(pwd):/src -v /usr/local/include:/include_usr_lib -v /usr/include:/usr/include_lib trzeci/emscripten:sdk-incoming-64bit bash
+    - docker run -dit --name emscripten -v $(pwd):/src -v /usr/local/include:/include_usr_lib -v /usr/include/c++/7.4.0:/usr/include_lib trzeci/emscripten:sdk-incoming-64bit bash
     - gcc --version
     - clang --version
-    - ls /usr/local/include
+    - ls /usr/include
 
 script:
     - docker exec -it emscripten make INCLUDE_PATH="/include_usr_lib -I/usr/include_lib" clean debug
