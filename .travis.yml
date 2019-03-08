@@ -28,5 +28,5 @@ install:
     - docker exec -it emscripten /mnt/docker_entry.sh
 
 script:
-    - docker exec -it emscripten make LIBFLAGS="$(sdl2-config --cflags --libs)" clean app
-    - docker exec -it emscripten make LIBFLAGS="$(sdl2-config --cflags --libs)" -j ${CPU_NUM}
+    - docker exec -it emscripten make clean app
+    - docker exec -it emscripten make -j ${CPU_NUM}
