@@ -28,3 +28,6 @@ echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc
     libsdl2-image-dev\
     libsdl2-ttf-2.0-0\
     libsdl2-ttf-dev
+
+g++ --version
+clang++ --version
