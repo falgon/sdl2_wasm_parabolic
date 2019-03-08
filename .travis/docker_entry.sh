@@ -26,6 +26,6 @@ aptitude -y install\
     libsdl2-ttf-2.0-0\
     libsdl2-ttf-dev
 
-ls /usr/include
+ls /usr/include/SDL2
 g++ --version
 clang++ --version
