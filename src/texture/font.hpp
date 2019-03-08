@@ -1,8 +1,13 @@
 #ifndef INCLUDED_PBM_TEXTURE_FONT_HPP
 #define INCLUDED_PBM_TEXTURE_FONT_HPP
 #include "config.hpp"
+#ifndef __linux__
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_render.h>
+#else
+#include <SDL_ttf.h>
+#include <SDL_render.h>
+#endif
 
 namespace pbm::texture {
 
