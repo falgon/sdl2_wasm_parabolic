@@ -2,14 +2,14 @@
 
 uname -a
 echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list
-sudo apt-get update
-sudo apt-get -y -qq upgrade
-sudo apt-get -y autoremove
-sudo apt-get install -y -qq -t testing g++
-sudo apt-get install -y 
-sudo apt-get install -f -y
-sudo apt-get install -y -qq aptitude
-sudo aptitude -y install\
+ apt-get update
+ apt-get -y -qq upgrade
+ apt-get -y autoremove
+ apt-get install -y -qq -t testing g++
+ apt-get install -y 
+ apt-get install -f -y
+ apt-get install -y -qq aptitude
+ aptitude -y install\
     build-essential\
     zlib1g-dev\
     gcc-7\
