@@ -1,19 +1,16 @@
 #!/bin/bash
 
 uname -a
-echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list
- apt-get update
- apt-get -y -qq upgrade
- apt-get -y autoremove
- apt-get install -y -qq -t testing g++
- apt-get install -y 
- apt-get install -f -y
- apt-get install -y -qq aptitude
- aptitude -y install\
+echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list 
+apt-get update
+apt-get -y -qq upgrade
+apt-get -y -qq autoremove
+apt-get install -y -qq -t testing g++
+apt-get install -f -qq -y
+apt-get install -y -qq aptitude
+aptitude -y install\
     build-essential\
     zlib1g-dev\
-    gcc-7\
-    g++-7\
     g++-multilib\
     clang\
     subversion\
@@ -29,5 +26,6 @@ echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc
     libsdl2-ttf-2.0-0\
     libsdl2-ttf-dev
 
+ls
 g++ --version
 clang++ --version
