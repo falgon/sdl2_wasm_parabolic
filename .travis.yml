@@ -20,12 +20,12 @@ services:
     - docker
 
 before_install:
-    - curl -fsSL https://raw.githubusercontent.com/falgon/SrookCppLibraries/master/travis/linux/before_install.sh | bash
-    - sudo apt-get -f -y -qq install
-    - sudo apt-get -y autoremove
+    - export CPU_NUM=$(egrep -c "^processor\s:\s[0-9]+$" /proc/cpuinfo);
 
 install:
-    - docker run -dit --name emscripten -v $(pwd):/src --entrypoint ./docker_entry.sh trzeci/emscripten:sdk-incoming-64bit bash
+    - chmod +x docker_entry.sh
+    - docker build -t="emscripten" .
+    - docker run -dit --name emscripten -v $(pwd):/src trzeci/emscripten:sdk-incoming-64bit bash
 
 script:
     - docker exec -it emscripten make clean debug
