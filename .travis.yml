@@ -30,4 +30,4 @@ install:
 
 script:
     - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH="$(cat gcc_include_path)" clean app
-    - docker exec -it emscripten make -j ${CPU_NUM}
+    - docker exec -it emscripten make EMCC=emcc -j ${CPU_NUM}

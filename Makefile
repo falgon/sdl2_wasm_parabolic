@@ -1,10 +1,10 @@
 CXXFLAGS := -std=c++1z -Wall -Wextra -pedantic
 INCLUDE_PATH := 
 SRC := src/main.cpp
-
+EMCC := em++
 
 all:
-	em++ $(CXXFLAGS) $(INCLUDE_PATH) -DNDEBUG $(SRC)\
+	$(EMCC) $(CXXFLAGS) $(INCLUDE_PATH) -DNDEBUG $(SRC)\
 		-s WASM=1\
 		-s USE_SDL=2\
 		-s USE_SDL_TTF=2\
