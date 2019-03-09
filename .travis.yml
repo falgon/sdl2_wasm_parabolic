@@ -28,5 +28,7 @@ install:
     - docker exec -it emscripten /mnt/docker_entry.sh
 
 script:
+    - echo "INCLUDE_PATH: $(cat include_path)"
+    - ls /usr/include/SDL2
     - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH=$(cat include_path) clean app
     - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH=$(cat include_path) -j ${CPU_NUM}
