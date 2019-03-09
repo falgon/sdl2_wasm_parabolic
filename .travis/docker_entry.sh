@@ -33,4 +33,5 @@ INCLUDE_ENV=""
 for e in $(clang++ -E -x c++ -v /dev/null 2>&1 | awk '/#include <...> search starts here:/,/End of search list./' | sed -e '1d' | sed -e '$d' | sed 's/([^)]*)//g' | sed 's/ //g'); do 
     INCLUDE_ENV="$INCLUDE_ENV -I $e"; 
 done
+ls /usr/include/SDL2
 echo "$INCLUDE_ENV -I /usr/include/SDL2" > /src/include_path
