@@ -16,7 +16,7 @@ apt-get -y -qq autoremove
 apt-get install -y -qq -t testing g++
 apt-get install -f -y -qq
 apt-get install -y -qq aptitude
-aptitude -y install\
+aptitude -yq install\
     build-essential\
     zlib1g-dev\
     g++-multilib\
@@ -31,8 +31,10 @@ aptitude -y install\
     libsdl2-image-2.0-0\
     libsdl2-image-dev\
     libsdl2-ttf-2.0-0\
-    libsdl2-ttf-dev
+    libsdl2-ttf-dev > /dev/null
 
 g++ --version
+clang++ --version
 
 echo "$(include_env g++) -I /usr/include/SDL2" > /src/gcc_include_path
+echo "$(include_env clang++)" > /src/emcc_include_path
