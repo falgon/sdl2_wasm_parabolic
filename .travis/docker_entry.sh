@@ -37,11 +37,5 @@ aptitude -y install\
 g++ --version
 clang++ --version
 
-INCLUDE_ENV=""
-for e in $(clang++ -E -x c++ -v /dev/null 2>&1 | awk '/#include <...> search starts here:/,/End of search list./' | sed -e '1d' | sed -e '$d' | sed 's/([^)]*)//g' | sed 's/ //g'); do 
-    INCLUDE_ENV="$INCLUDE_ENV -I $e"; 
-done
-
-
 echo "$(include_env g++) -I /usr/include/SDL2" > /src/gcc_include_path
 echo "$(include_env clang++) -I /usr/include/SDL2" > /src/clang_include_path
