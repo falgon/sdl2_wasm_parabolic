@@ -29,5 +29,5 @@ install:
 
 script:
     - cat include_path
-    - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH="$(cat include_path)" clean app
-    - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH="$(cat include_path)" -j ${CPU_NUM}
+    - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH="$(cat gcc_include_path)" clean app
+    - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH="$(cat clang_include_path)" -j ${CPU_NUM}

@@ -1,5 +1,13 @@
 #!/bin/bash
 
+include_env() {
+    INCLUDE_ENV=""
+    for e in $($1 -E -x c++ -v /dev/null 2>&1 | awk '/#include <...> search starts here:/,/End of search list./' | sed -e '1d' | sed -e '$d' | sed 's/([^)]*)//g' | sed 's/ //g'); do 
+        INCLUDE_ENV="$INCLUDE_ENV -I $e";
+    done
+    echo $INCLUDE_ENV
+}
+
 uname -a
 echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list 
 apt-get update
@@ -33,5 +41,7 @@ INCLUDE_ENV=""
 for e in $(clang++ -E -x c++ -v /dev/null 2>&1 | awk '/#include <...> search starts here:/,/End of search list./' | sed -e '1d' | sed -e '$d' | sed 's/([^)]*)//g' | sed 's/ //g'); do 
     INCLUDE_ENV="$INCLUDE_ENV -I $e"; 
 done
-ls /usr/include/SDL2
-echo "$INCLUDE_ENV -I /usr/include/SDL2" > /src/include_path
+
+
+echo "$(include_env g++) -I /usr/include/SDL2" > /src/gcc_include_path
+echo "$(include_env clang++) -I /usr/include/SDL2" > /src/clang_include_path
