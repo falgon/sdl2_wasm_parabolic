@@ -26,9 +26,8 @@ install:
     - chmod +x .travis/docker_entry.sh
     - docker run -dit --name emscripten -v $(pwd)/.travis:/mnt -v $(pwd):/src trzeci/emscripten:sdk-incoming-64bit bash
     - docker exec -it emscripten /mnt/docker_entry.sh
+    - cat gcc_include_path
 
 script:
-    - cat gcc_include_path
-    - cat clang_include_path
     - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH="$(cat gcc_include_path)" clean app
-    - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH="$(cat clang_include_path)" -j ${CPU_NUM}
+    - docker exec -it emscripten make CXXFLAGS="-D__linux__ -D_REENTRANT -std=c++1z -Wall -Wextra -pedantic" INCLUDE_PATH="$(cat gcc_include_path)" -j ${CPU_NUM}

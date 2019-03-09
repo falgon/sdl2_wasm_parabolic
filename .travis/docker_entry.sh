@@ -20,7 +20,6 @@ aptitude -y install\
     build-essential\
     zlib1g-dev\
     g++-multilib\
-    clang\
     subversion\
     make\
     cmake\
@@ -35,7 +34,5 @@ aptitude -y install\
     libsdl2-ttf-dev
 
 g++ --version
-clang++ --version
 
 echo "$(include_env g++) -I /usr/include/SDL2" > /src/gcc_include_path
-echo "$(include_env clang++) -I /usr/include/SDL2" > /src/clang_include_path
