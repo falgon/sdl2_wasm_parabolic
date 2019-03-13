@@ -105,9 +105,9 @@ private:
         draw_follow_line();
 
         std::string s = "a = " + std::to_string(std::size_t(angle())), 
-            ldist = "s = " + std::to_string(std::size_t(line_distance()));
+            ldist = "s = " + std::to_string(std::size_t(line_distance())) + " m/s";
         
-        auto tf_txtr = tf_.get_static_texture(rw_.renderer(), "t = 0");
+        auto tf_txtr = tf_.get_static_texture(rw_.renderer(), "t = 0 sec");
         auto tfr_txtr = tfr_.get_texture(rw_.renderer(), s.c_str());
         auto td_txtr = td_.get_texture(rw_.renderer(), ldist.c_str());
         auto ti_txtr = ti_.get_static_texture(rw_.renderer());

@@ -89,7 +89,7 @@ public:
 private:
     inline double time() const noexcept { return c_ * t_; }
     
-    inline double max_height() const noexcept { return bp_.y + std::pow(speed_ * std::sin(rad_angle()), 2) / (2 * g); }
+    inline double max_height() const noexcept { return std::pow(speed_ * std::sin(rad_angle()), 2) / (2 * g); }
 
     inline double reached_distance() const noexcept { return std::pow(speed_, 2) * std::sin(2 * rad_angle()) / g; }
 
@@ -105,7 +105,7 @@ private:
             return { false, std::nullopt };
         }
 
-        const std::string t = "t = " + std::to_string(time());
+        const std::string t = "t = " + std::to_string(time()) + " sec";
 
         auto tf_txtr = tf_.get_texture(rw_.renderer(), t.c_str());
         auto ti_txtr = ti_.get_static_texture(rw_.renderer());
@@ -129,7 +129,7 @@ private:
             return { false, std::nullopt };
         }
 #endif
-        const std::string h = "h = " + std::to_string(max_height()), l = "l = " + std::to_string(reached_distance());
+        const std::string h = "h = " + std::to_string(max_height()) + " m", l = "l = " + std::to_string(reached_distance()) + " m";
         auto hf_txtr = tf_.get_static_texture(rw_.renderer(), h.c_str());
         const auto lf_txtr = 
 #ifdef __EMSCRIPTEN__
@@ -179,7 +179,7 @@ private:
             debug_console("drawer", __func__, SDL_GetError);
         }
 
-        const std::string t = "t = " + std::to_string(time());
+        const std::string t = "t = " + std::to_string(time()) + " sec";
 
         auto tf_txtr = tf_.get_texture(rw_.renderer(), t.c_str());
         auto ti_txtr = ti_.get_static_texture(rw_.renderer());

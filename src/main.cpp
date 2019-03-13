@@ -1,5 +1,5 @@
 #if __cplusplus >= 201703L
-#if (__has_include(<SDL2/SDL.h>) && __has_include(<SDL2/SDL_ttf.h>)) || (__has_include(<SDL.h>) && __has_include(<SDL_ttf.h>))
+#if (__has_include(<SDL2/SDL.h>) && __has_include(<SDL2/SDL_ttf.h>))
 #ifdef __EMSCRIPTEN__
 #   include <emscripten.h>
 #endif
